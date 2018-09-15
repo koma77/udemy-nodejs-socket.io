@@ -7,10 +7,12 @@ var createMessage = function() {
   });
 }
 
+/*
 socket.on('connect', function() {
   console.log('Connected to server');
   createMessage();
 });
+*/
 
 socket.on('disconnect', function() {
   console.log('Disconnected from server');
