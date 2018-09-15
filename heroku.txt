@@ -1,0 +1,4 @@
+heroku  heroku create --region eu
+git push heroku master
+heroku open
+heroku apps:destroy stormy-woodland-37583
