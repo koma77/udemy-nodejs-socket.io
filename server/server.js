@@ -13,14 +13,12 @@ var io = socketIO(server);
 app.use(express.static(publicPath));
 io.on('connection', (socket) => {
 
-  socket.emit('newMessage', {
-    from: 'server@example.com',
-    text: 'test email from server',
-    createdAt: '1234567890'
-  });
-
-  socket.on('createMessage', (newEmail) => {
-    console.log('Got new message', newEmail);
+  socket.on('createMessage', (message) => {
+    io.emit('newMessage', {
+      from: message.from,
+      text: message.text,
+      createdAt: ~~(new Date().getTime() / 1000)
+    });
   });
 
   console.log('New client connection');
