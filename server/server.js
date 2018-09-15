@@ -13,8 +13,30 @@ var io = socketIO(server);
 app.use(express.static(publicPath));
 io.on('connection', (socket) => {
 
+  // A message from admin to user
+  socket.emit('newMessage', {
+    from: 'admin',
+    text: 'you have just connected to chat',
+    createdAt: ~~(new Date().getTime() / 1000)
+  });
+
+  // A message to all connected except the user
+  socket.broadcast.emit('newMessage', {
+    from: 'admin',
+    text: 'a new user connected',
+    createdAt: ~~(new Date().getTime() / 1000)
+  });
+
+
   socket.on('createMessage', (message) => {
+    /*
     io.emit('newMessage', {
+      from: message.from,
+      text: message.text,
+      createdAt: ~~(new Date().getTime() / 1000)
+    });
+    */
+    socket.broadcast.emit('newMessage', {
       from: message.from,
       text: message.text,
       createdAt: ~~(new Date().getTime() / 1000)
