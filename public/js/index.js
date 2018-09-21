@@ -20,11 +20,27 @@ socket.on('disconnect', function() {
 
 socket.on('newMessage', function(data) {
   console.log('Got a new message', data);
+  li = jQuery('<li></li>');
+  li.text(`${data.from}: ${data.text}`);
+
+  jQuery('#messages').append(li);
 });
 
+/*
 socket.emit('createMessage', {
   from: 'Fred',
   text: 'Hi'
 }, function(msg) {
   console.log('got it: ', msg);
+});
+*/
+
+jQuery('#message-form').on('submit', function (ev) {
+  ev.preventDefault();
+  socket.emit('createMessage', {
+    from: 'User',
+    text: jQuery('[name=message]').val()
+  }, function () {
+
+  });
 });
