@@ -20,7 +20,7 @@ io.on('connection', (socket) => {
 
   // A message to all connected except the user
   socket.broadcast.emit('newMessage',
-    generateMessage('admin', 'a new user joined'));
+    generateMessage('Admin', 'a new user joined'));
 
   socket.on('createLocationMessage', function(coords) {
     io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude));
