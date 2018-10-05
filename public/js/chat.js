@@ -26,6 +26,9 @@ socket.on('connect', function() {
   console.log('Connected to server');
   var params = jQuery.deparam(window.location.search);
 
+  jQuery('#people_list_h3').text(`People at ${params.room}`);
+
+
   socket.emit('join', params, function(err) {
       if (err) {
         alert(err);
@@ -48,7 +51,7 @@ socket.on('updateUserList', function(users) {
     ol.append(jQuery('<li></li>').text(user));
   });
 
-  jQuery('#users').html(ol)
+  jQuery('#users').html(ol);
 });
 
 socket.on('newMessage', function(message) {
@@ -108,7 +111,6 @@ jQuery('#message-form').on('submit', function (ev) {
   ev.preventDefault();
 
   socket.emit('createMessage', {
-    from: 'User',
     text: messageTextBox.val()
   }, function () {
     // Clear the value in sumit callback
